@@ -1,0 +1,95 @@
+{
+  "version": "2.0.56",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -o storybook-build",
+    "deploy": "npm run build && npm version patch --no-git-tag-version --preid=patch &&  npm publish"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "styled-components": "^5.3.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@mypharma/react-components",
+  "author": "mypharma",
+  "module": "dist/react-components.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/react-components.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-components.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@rollup/plugin-alias": "^3.1.8",
+    "@rollup/plugin-image": "^2.1.1",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@size-limit/preset-small-lib": "^6.0.3",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addons": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@svgr/webpack": "^5.5.0",
+    "@types/color": "3.0.2",
+    "@types/react": "^17.0.30",
+    "@types/react-dom": "^17.0.9",
+    "@types/styled-components": "^5.1.15",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-inline-react-svg": "^2.0.1",
+    "husky": "^7.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-img": "^1.1.0",
+    "rollup-plugin-svg": "^2.0.0",
+    "size-limit": "^6.0.3",
+    "styled-components": "^5.3.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^5.0.0-beta.5",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/lab": "^5.0.0-alpha.63",
+    "@mui/material": "^5.2.7",
+    "@mypharma/react-components": "2.0.26",
+    "color": "3.2.0",
+    "svg-inline-loader": "^0.8.2"
+  }
+}

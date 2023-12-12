@@ -1,0 +1,17 @@
+.vscode
+/build/
+/etl-core/node_modules/
+/etl-login/node_modules/
+/etl-updater/node_modules/
+/etl-monitor/node_modules/
+/etl-core/dist/
+/etl-core/data/
+/etl-login/dist/
+/etl-login/data/
+/etl-core/logs/
+/etl-login/logs/
+/etl-core/config.json
+/etl-login/config.json
+/etl-core/package-lock.json
+/etl-login/package-lock.json
+config.json

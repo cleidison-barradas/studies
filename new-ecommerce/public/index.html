@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="notranslate" translate="no">
+
+<head>
+    <meta charset="utf-8" />
+    <link id="favicon" rel="icon" href="%PUBLIC_URL%/loadingIcon.gif" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="google" content="notranslate" />
+    <link rel="manifest" id="manifest" />
+</head>
+
+<body>
+  <script type="text/javascript">
+    window.pagseguroLoaded = false
+    window.loadPagSeguro = async () => {
+      var pagseguroScript = document.createElement('script')
+      pagseguroScript.type = 'text/javascript'
+      pagseguroScript.async = true
+      pagseguroScript.src = '%REACT_APP_PAGSEGURO_SCRIPT%'
+
+      var _s = document.getElementsByTagName('script')[0]
+      _s.parentNode.insertBefore(pagseguroScript, _s)
+      pagseguroScript.onload = () => {
+        window.pagseguroLoaded = true
+        Promise.resolve(true)
+      }
+    }
+  </script>
+
+  <script>
+    const manifestTag = document.getElementById('manifest')
+    const local_origin = window.location.hostname.includes('localhost') ? `%REACT_APP_X_ORIGIN%` : window.location.hostname
+
+    manifestTag.setAttribute('href', new URL(`v2/store/manifest?origin=${local_origin}`, '%REACT_APP_SITE_API_URL%').href)
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./serviceWorker.js')
+          .then((response) => response.active).catch(error => console.log(error))
+      })
+    }
+  </script>
+  <div id="root"></div>
+</body>
+
+</html>

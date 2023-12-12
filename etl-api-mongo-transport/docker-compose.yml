@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  etl-api-mongo-transport:
+    image: ambientum/node:16
+    container_name: etl-api-mongo-transport
+    command: bash -c "npm i && npm run dev"
+    volumes:
+      - .:/var/www/app

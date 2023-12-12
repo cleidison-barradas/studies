@@ -1,0 +1,25 @@
+ const errorCodes = {
+  invalid_credential: 'Usuario ou senha incorretos',
+  missing_authorization: 'Falha de autenticação',
+  google_analytics_not_found: 'Google Analytics não cadastrado',
+  gaview_not_registered: 'Google Analytics View não cadastrado',
+  invalid_date: 'Datas invalidas',
+  product_sheet_not_found: 'Planilha de produtos não encontrada,por favor cheque o nome novamente',
+  ean_not_found_on_main_database: 'EAN não cadastrado na base principal',
+  product_already_registered: 'Produto já cadastrado',
+  session_expired: 'Login expirado',
+  customer_not_found: 'Cliente não encontrado',
+  product_has_promotion_active: 'Produto possui promoção valida',
+  product_price_invalid: 'Preço de promoção do produto deve ser menor que seu valor de venda',
+  percentage_promotion_invalid: 'Percentual da promoção deve ser menor ou igual a  99 %',
+  product_not_provider: 'Erro ao encontrar o produto',
+  typePromotion_not_provider: 'Não encontrado o tipo de promoção',
+  typeDiscount_not_provider: 'Não encontrado o tipo de desconto',
+  date_promotion_invalid: 'Data de início de promoção deve ser menor que a data de fim da promoção',
+  url_not_exits_in_store: 'Url não encontrada nos seus subdominios',
+  customers_not_found: 'Nenhum cliente encontrado',
+  import_in_progress: 'Importação em andamento aguarde a finalização',
+  status_has_already_been_set: 'Esse status já foi definido',
+  invalid_client: 'Cliente id invalido'
+} as any
+export default errorCodes

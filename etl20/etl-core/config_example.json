@@ -1,0 +1,14 @@
+{
+  "core_version_code": 31,
+  "api": {
+      "login": "https://etl.mypharma.com.br/v2/account/login",
+      "validate": "https://etl.mypharma.com.br/v2/account/validate",
+      "renew": "https://etl.mypharma.com.br/v2/account/renew",
+      "root": "https://etl.mypharma.com.br/"
+  },
+  "socket_host": "ws://etl.mypharma.com.br:8189",
+  "monitor_socket_host": "ws://pival.mypharma.com.br:8084",
+  "data_folder": "/home/george/jobs/mypharma/etl-client/build/data",
+  "log_folder": "C:/mypharma/logs",
+  "installation_folder": "/home/george/jobs/mypharma/etl-client/build"
+}

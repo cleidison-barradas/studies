@@ -1,0 +1,34 @@
+{
+  "name": "ifood-data-handler",
+  "version": "1.0.0",
+  "description": "handle order and reports ifood service",
+  "main": "build/app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/app.ts",
+    "build": "tsc && babel src --out-dir dist --extensions .ts",
+    "start": "node -r ts-node/register src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/node": "^18.7.13",
+    "@types/worker-threads-pool": "^2.0.1",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "@mypharma/api-core": "^0.18.49",
+    "@mypharma/etl-engine": "^0.0.16",
+    "axios": "^0.27.2",
+    "bson": "^4.7.0",
+    "dotenv": "^16.0.1",
+    "node-worker-threads-pool": "^1.5.1",
+    "worker-threads-pool": "^2.0.0"
+  }
+}

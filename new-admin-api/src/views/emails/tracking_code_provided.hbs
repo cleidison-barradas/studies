@@ -1,0 +1,33 @@
+<style>
+  .content {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 17px;
+  }
+
+  span {
+    font-size: 16px;
+    color: #707070;
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    color: #707070;
+  }
+</style>
+
+<div class="content">
+  <span>Pedido {{storeId}}, Atualizado em: {{updatedAt}}</span>
+  <h2>Olá {{name}} </h2> <p>tudo bem? Agradecemos pelo seu pedido em nossa loja</p>
+  <p>Seu código de rastreamento é:</p>
+  <span>{{trackingCode}}</span>
+  <br />
+
+  <p>Para rastreio da sua encomenda nos Correios utilize o link:</p>
+
+  <a href="www2.correios.com.br/sistemas/rastreamento/" title="Acompanhar pedido" target="_blank" >Acompanhar pedido</a> <br />
+  <span>Volte sempre! {{store}}</span>
+</div>

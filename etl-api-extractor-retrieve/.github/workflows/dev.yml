@@ -1,0 +1,63 @@
+name: ETL Extractor Retrieve Develop Deploy
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_DEV_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create prod environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_ENV: development
+          envkey_DATABASE_HOST: ${{ secrets.DEV_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.DEV_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.DEV_MONGO_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DEV_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DEV_MONGO_PASSWORD }}
+          envkey_DATABASE_MASTER_NAME: ${{ secrets.DEV_MONGO_MASTER_NAME }}
+          envkey_DATABASE_AUTH_SOURCE: ${{ secrets.DEV_MONGO_AUTH_SOURCE }}
+          envkey_REDIS_HOST: ${{ secrets.PROD_REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.PROD_REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.PROD_REDIS_PASSWORD }}
+          envkey_AMQP_HOST: ${{ secrets.AMQP_DEV_HOST }}
+          envkey_INOVAFARMA_URL_BASE: ${{ secrets.INOVAFARMA_URL_BASE }}
+          envkey_INTEGRATION_LOGIN: ${{ secrets.INTEGRATION_LOGIN }}
+          envkey_INTEGRATION_PASSWORD: ${{ secrets.INTEGRATION_PASSWORD }}
+          envkey_VERSATIL_URL_BASE: ${{ secrets.VERSATIL_URL_BASE }}
+          envkey_URL_LIST: ${{ secrets.URL_LIST }}
+          envkey_URL_UPDATE: ${{ secrets.URL_UPDATE }}
+          envkey_SYS: ${{ secrets.SYS }}
+          envkey_PHARMUS_URL_BASE: ${{ secrets.PHARMUS_URL_BASE }}
+          envkey_PHARMUS_USER: ${{ secrets.PHARMUS_USER }}
+          envkey_EMPRESA: ${{ secrets.EMPRESA }}
+          envkey_COMESTOQUE: ${{ secrets.COMESTOQUE }}
+          envkey_DESENVOLVIMENTO: ${{ secrets.DESENVOLVIMENTO }}
+          envkey_NODE_ENV: development
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Build Project
+        run: npm run build
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO

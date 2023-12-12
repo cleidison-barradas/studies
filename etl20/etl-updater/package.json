@@ -1,0 +1,45 @@
+{
+  "name": "@mypharma/etl-updater",
+  "version": "1.0.0",
+  "description": "ETL 2.0 self updater",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node_modules/.bin/electron .",
+    "build": "cp ../config.json ./ && electron-builder",
+    "build-windows": "cp ../config.json ./ && electron-builder --win --x64 --ia32"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apisauce": "^1.0.2",
+    "extract-zip": "^1.6.7",
+    "find-process": "^1.4.2",
+    "moment": "^2.24.0",
+    "ps-node": "^0.1.6",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "electron": "^5.0.5",
+    "electron-builder": "^20.44.2",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "build": {
+    "appId": "mypharma.elt.updater",
+    "productName": "ETL_Updater",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "../../resources/icons/app.icns"
+    },
+    "win": {
+      "icon": "../../resources/icons/app.ico",
+      "target": [
+        "portable"
+      ]
+    },
+    "directories": {
+      "output": "../build"
+    }
+  },
+  "postinstall": "electron-builder install-app-deps"
+}

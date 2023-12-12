@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>MyPharma ETL</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="py-5 text-center">
+      <img src="./images/logo.png" alt="" class="d-block mx-auto mb-4">
+      <h2>Autenticação</h2>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div id="checking" class="col-md-12 text-center">
+        <strong>Verificando autenticidade da sessão atual...</strong>
+      </div>
+
+      <div id="content" class="col-md-8" style="display: none">
+        <div class="mb-3 invalid-feedback">
+          Senha inválida!
+        </div>
+
+        <div class="mb-3">
+          <label for="input-username">Usuário </label>
+          <input type="text" class="form-control" id="input-username">
+        </div>
+
+        <div class="mb-3">
+          <label for="input-password">Senha </label>
+          <input type="password" class="form-control" id="input-password">
+        </div>
+
+        <div class="mb-3">
+          <hr>
+          <button class="btn btn-primary btn-lg btn-block" type="submit" id="login-btn">LOGAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./login.js"></script>
+</body>
+
+</html>

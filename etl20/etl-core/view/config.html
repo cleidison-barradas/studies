@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>MyPharma ETL</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="py-1 text-center">
+      <img src="./images/logo.png" alt="" class="d-block mx-auto mb-4">
+      <h3 style="line-height: 10px">Configuração</h3>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <small class="col-md-12 text-center">
+        Antes de iniciar a integração, precisamos configurar algumas informações.
+      </small>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-danger" role="alert" id="error-alert" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      
+    </div>
+
+    <div id="database-config" class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="mb-1">
+          <label for="input-dialect">Sistema </label>
+          <select name="input-dialect" id="input-dialect" class="form-control">
+            <option value="none" selected>Selecione o tipo do banco de dados</option>
+          </select>
+        </div>
+
+        <div class="mb-1">
+          <label for="input-hostname">IP do servidor </label>
+          <input type="text" class="form-control required-field" id="input-hostname">
+        </div>
+
+        <div class="mb-1">
+          <label for="input-port">Porta </label>
+          <input type="number" class="form-control required-field" id="input-port">
+        </div>
+
+        <div class="mb-1">
+          <label for="input-name">Banco de dados </label>
+          <div id="input-name-container">
+            <input type="text" class="form-control required-field" id="input-name">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-1">
+          <label for="input-username">Usuário </label>
+          <input type="text" class="form-control required-field" id="input-username">
+        </div>
+
+        <div class="mb-1">
+          <label for="input-password">Senha </label>
+          <input type="text" class="form-control required-field" id="input-password">
+        </div>
+
+        <div class="mb-1">
+          <label for="input-convenio">Código do convênio MyPharma </label>
+          <input type="number" class="form-control" min="1" id="input-convenio">
+        </div>
+
+        <div class="mb-1">
+          <hr>
+          <!--<button class="btn btn-primary btn-lg btn-block" type="submit" id="save-btn">SALVAR</button>-->
+          <button class="btn btn-secondary btn-lg btn-block" type="submit" id="next-btn">PRÓXIMO</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="scheduler-config" class="row justify-content-md-center" style="display: none">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+            <strong>Rotina: </strong>
+            <small>Intervalo de tempo no qual irá sincronizar os produtos.</small>
+            <br>
+            <div class="mb-1">
+              <input type="number" class="form-control" min="10" id="input-interval" placeholder="Intervalo de tempo em minutos">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <strong>Notificação: </strong>
+            <small>Você pode escolher ser notificado sempre que uma sincronização ocorrer.</small>
+    
+            <div class="mb-1">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="input-notification" autocomplete="off" value="0"> Não
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="input-notification" autocomplete="off" value="1"> Sim
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <strong>Canal de Atualização: </strong>
+            <small>Canal no qual irá receber as atualizações dos Módulos.</small>
+            <br>
+            <div class="mb-1">
+              <select name="input-update-channel" id="input-update-channel" class="form-control">
+                <option value="latest" selected>Produção</option>
+                <option value="beta">Beta</option>
+                <option value="alpha">Alpha</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-1">
+              <hr>
+              <button class="btn btn-primary btn-lg btn-block" type="submit" id="save-btn">SALVAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./config.js"></script>
+</body>
+
+</html>

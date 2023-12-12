@@ -1,0 +1,35 @@
+{
+  "name": "import-data-handler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/app.ts",
+    "dev:debug": "nodemon --ignore 'src/**/*.spec.ts' --inspect src/app.ts",
+    "build": "tsc && babel src --out-dir dist --extensions .ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.2.1",
+    "@types/node": "^16.18.3",
+    "nodemon": "^2.0.20",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-typescript": "^7.18.6",
+    "@mypharma/api-core": "^0.18.49",
+    "@mypharma/etl-engine": "^0.0.16",
+    "bson": "^4.7.0",
+    "dotenv": "^8.2.0",
+    "ioredis": "^5.2.3",
+    "moment": "^2.29.4"
+  }
+}

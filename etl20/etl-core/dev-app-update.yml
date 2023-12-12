@@ -1,0 +1,4 @@
+provider: s3
+bucket: myp-public
+path: etl_updates/core
+updaterCacheDirName: '@mypharmaetl-core-updater'

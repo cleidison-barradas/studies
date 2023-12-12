@@ -1,0 +1,66 @@
+name: Cache Engine Production Deploy
+on:
+  push:
+    branches:
+      - production
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_PROD_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create prod environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_ENV: prod
+          envkey_DATABASE_HOST: ${{ secrets.PROD_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.PROD_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.PROD_MONGO_NAME }}
+          envkey_DATABASE_USER: ${{ secrets.PROD_MONGO_USERNAME }}
+          envkey_DATABASE_PASS: ${{ secrets.PROD_MONGO_PASSWORD }}
+
+          envkey_ELASTICSEARCH_HOST: ${{ secrets.PROD_ELASTICSEARCH_HOST }}
+          envkey_ELASTICSEARCH_USERNAME: ${{ secrets.PROD_ELASTICSEARCH_USERNAME }}
+          envkey_ELASTICSEARCH_PASSWORD: ${{ secrets.PROD_ELASTICSEARCH_PASSWORD }}
+
+          envkey_REDIS_HOST: ${{ secrets.PROD_REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.PROD_REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.PROD_REDIS_PASSWORD }}
+
+          envkey_AMQP_HOST: ${{ secrets.PROD_AMQP_HOST }}
+          envkey_NODE_ENV: production
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Build Project
+        run: npm run build
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO
+
+  redeploy:
+    name: Redeploy webhook call
+    runs-on: ubuntu-22.04
+    needs: [docker]
+    steps:
+      - name: Deploy docker container webhook
+        uses: joelwmale/webhook-action@master
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOY_PROD_WEBHOOK_URL }}
+          data: "{ 'myp': 'uhaaa' }"

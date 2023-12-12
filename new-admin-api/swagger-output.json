@@ -1,0 +1,3312 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ADMIN API",
+    "description": "Documentação da API do Novo ADMIN"
+  },
+  "host": "localhost:3333",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "AboutUs",
+      "description": "Endpoints para sobre nós"
+    },
+    {
+      "name": "Category",
+      "description": "Endpoints para categorias"
+    },
+    {
+      "name": "Banner",
+      "description": "Endpoints para banners"
+    },
+    {
+      "name": "City",
+      "description": "Endpoints para cidades"
+    },
+    {
+      "name": "Cupom",
+      "description": "Endpoints para cupons"
+    },
+    {
+      "name": "Country",
+      "description": "Endpoints para países"
+    },
+    {
+      "name": "Customer",
+      "description": "Endpoints para clientes"
+    },
+    {
+      "name": "DeliveryFee",
+      "description": "Endpoints para taxas de entrega"
+    },
+    {
+      "name": "Erp",
+      "description": "Endpoints para integração de Erp`s"
+    },
+    {
+      "name": "IntegrationSQL",
+      "description": "Endpoints para integração de sql`s"
+    },
+    {
+      "name": "Manufacturer",
+      "description": "Endpoints para fabricantes"
+    },
+    {
+      "name": "Neighborhood",
+      "description": "Endpoints para bairros"
+    },
+    {
+      "name": "OpeningHour",
+      "description": "Endpoints para horários da loja"
+    },
+    {
+      "name": "ProductControl",
+      "description": "Endpoints para controle de produtos"
+    },
+    {
+      "name": "ProductClassification",
+      "description": "Endpoints para classificação de produtos"
+    },
+    {
+      "name": "ProductSlug",
+      "description": "Endpoints para slugs de produtos"
+    },
+    {
+      "name": "ProductPromotion",
+      "description": "Endpoints para promoção de produtos"
+    },
+    {
+      "name": "Order",
+      "description": "Endpoints para vendas"
+    },
+    {
+      "name": "PaymentMethod",
+      "description": "Endpoints para formas de pagamento"
+    },
+    {
+      "name": "Plan",
+      "description": "Endpoints para planos"
+    },
+    {
+      "name": "Product",
+      "description": "Endpoints para produtos"
+    },
+    {
+      "name": "ProductClassification",
+      "description": "Endpoints para classificação de produtos"
+    },
+    {
+      "name": "PublicAddress",
+      "description": "Endpoints para endereços"
+    },
+    {
+      "name": "SalesHistory",
+      "description": "Endpoints para historico de vendas"
+    },
+    {
+      "name": "ShowCase",
+      "description": "Endpoints para vitrine"
+    },
+    {
+      "name": "State",
+      "description": "Endpoints para estados"
+    },
+    {
+      "name": "StatisticOrder",
+      "description": "Endpoints para estatisticas de vendas"
+    },
+    {
+      "name": "StatisticsCustomer",
+      "description": "Endpoints para estatisticas de clientes"
+    },
+    {
+      "name": "StatusOrder",
+      "description": "Endpoints para status de vendas"
+    },
+    {
+      "name": "Store",
+      "description": "Endpoints para lojas"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint para obter categorias.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint para criar categoria",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/category/{id}": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint para alterar categoria",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint para excluir categoria",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/aboutUs/":{
+      "get": {
+        "tags": [
+          "AboutUs"
+        ],
+        "description":"Endpoint para obter sobre nós",
+        "parameters": [],
+        "responses": {
+          "200":{ 
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/AboutUs"
+            }
+          },
+          "404": {
+            "description":"Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AboutUs"
+        ],
+        "description":"Endpoint para criar sobre nós",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AboutUs"
+            }
+          }
+        ],
+        "responses": {
+          "200":{ 
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/AboutUs"
+            }
+          },
+          "404": {
+            "description":"Not Found"
+          }
+        }
+      }
+    },
+    "/v1/aboutUs/{id}": {
+      "post": {
+        "tags": [
+          "AboutUs"
+        ],
+        "description":"Endpoint para alterar sobre nós",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AboutUs"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "delete": {
+        "tags":[
+          "AboutUs"
+        ],
+        "description":"Endpoint para excluir sobre nós",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/v1/banner": {
+      "get": {
+        "tags":[
+          "Banner"
+        ],
+        "description":"Endpoint para obter todos os banners",
+        "parameters": [],
+        "responses":{
+          "200": {
+            "description":"Ok",
+            "schema": {
+              "$ref":"#/definitions/Banner"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags":[
+          "Banner"
+        ],
+        "description":"Endpoint para criar Banners",
+        "parameters":[
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/banner/{id}": {
+      "post": {
+        "tags": [
+          "Banner"
+        ],
+        "description":"Endpoint para alterar Banner",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Banner"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Banner"
+        ],
+        "description": "Endpoint para excluir Banners",
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/v1/city": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "description": "Endpoint para obter todas as cidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "City"
+        ],
+        "description": "Endpoint para criar Cidades",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/city/{id}": {
+      "post": {
+        "tags": [
+          "City"
+        ],
+        "description": "Endpoint para alterar Cidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"Ok",
+            "schema": {
+              "$ref": "#/definitions/City"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "City"
+        ],
+        "description": "Endpoint para excluir Cidades",
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/country": {
+      "get": {
+        "tags": [
+          "Country"
+        ],
+        "description": "Endpoint para obter todos os Países",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "404":  {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Country"
+        ],
+        "description": "Endpoint para criar um País",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/country/{id}": {
+      "post": {
+        "tags": [
+          "Country"
+        ],
+        "description":"Endpoint para alterar Países",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Country"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Country"
+        ],
+        "description": "Endpoint para excluir País",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/cupom": {
+      "get": {
+        "tags": [
+          "Cupom"
+        ],
+        "description":"Endpoint para obter todos os Cupons",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Cupom"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cupom"
+        ],
+        "description":"Endpoint para criar Cupons",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Cupom"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Cupom"
+            }
+
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/cupom/{id}": {
+      "post": {
+        "tags": [
+          "Cupom"
+        ],
+        "description":"Endpoint para alterar Cupom",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Cupom"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cupom"
+        ],
+        "description":"Endpoint para excluir um Cupom",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/customer": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoints para clientes",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoints para criar clientes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/customer/{id}": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoints para alterar clientes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref":"#/definitions/Customer"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoints para excluir clientes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/deliveryFee": {
+      "get": {
+        "tags": [
+          "DeliveryFee"
+        ],
+        "description": "Endpoints para obter todas as taxas de entrega",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DeliveryFee"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DeliveryFee"
+        ],
+        "description": "Endpoints para criar taxas de entrega",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/DeliveryFee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DeliveryFee"
+            }
+          },
+          "400": {
+            "description":"Error"
+          }
+        }
+      }
+    },
+    "/v1/deliveryFee/{id}": {
+      "post": {
+        "tags": [
+          "DeliveryFee"
+        ],
+        "description": "Endpoints para alterar taxas de entrega",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/DeliveryFee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref":"#/definitions/DeliveryFee"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DeliveryFee"
+        ],
+        "description": "Endpoints para alterar excluir taxas de entrega",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+
+      }
+    },
+    "/v1/erp": {
+      "get": {
+        "tags": [
+          "Erp"
+        ],
+        "description": "Endpoints para obter todas as integrações com erp`s",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Erp"
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Erp"
+        ],
+        "description": "Endpoints para criar intregrações com erp`s",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Erp"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Erp"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/erp/{id}": {
+      "post": {
+        "tags": [
+          "Erp"
+        ],
+        "description": "Endpoints para alterar integração de Erp`s",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Erp"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Erp"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Erp"
+        ],
+        "description": "Endpoints para excluir integração de Erp`s",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+        
+      }
+    },
+    "/v1/integrationsql": {
+      "get": {
+        "tags": [
+          "IntegrationSQL"
+        ],
+        "description": "Endpoints para obter todas as sql`s dos erp`s",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/IntegrationSQL"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "IntegrationSQL"
+        ],
+        "description": "Endpoints para criar sql`s dos erp`s",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/IntegrationSQL"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/IntegrationSQL"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/integrationsql/{id}": {
+      "post": {
+        "tags": [
+          "IntegrationSQL"
+        ],
+        "description": "Endpoints para alterar sql`s dos erp`s",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/IntegrationSQL"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/IntegrationSQL"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "IntegrationSQL"
+        ],
+        "description": "Endpoints para excluir sql`s dos erp`s",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/manufacturer":{
+      "get": {
+        "tags": [
+          "Manufacturer"
+        ],
+        "description": "Endpoints obter todos os fabricantes",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Manufacturer"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Manufacturer"
+        ],
+        "description": "Endpoints criar fabricantes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Manufacturer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Manufacturer"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "v1/manufacturer/{id}": {
+      "post": {
+        "tags": [
+          "Manufacturer"
+        ],
+        "description": "Endpoints alterar fabricantes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Manufacturer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Manufacturer"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Manufacturer"
+        ],
+        "description": "Endpoints para excluir fabricantes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/neighborhood": {
+      "get": {
+        "tags": [
+          "Neighborhood"
+        ],
+        "description": "Endpoints para obter todos os bairros",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Neighborhood"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Neighborhood"
+        ],
+        "description": "Endpoints para criar bairros",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Neighborhood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Neighborhood"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/neighborhood/{id}": {
+      "post": {
+        "tags": [
+          "Neighborhood"
+        ],
+        "description": "Endpoints para alterar bairros",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Neighborhood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Neighborhood"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Neighborhood"
+        ],
+        "description": "Endpoints para excluir bairros",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/openingHour": {
+      "get": {
+        "tags": [
+          "OpeningHour"
+        ],
+        "description": "Endpoints para obter harários de funcionamento",
+        "parameters": [
+          {
+            "name": "id?",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/OpeningHour"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "OpeningHour"
+        ],
+        "description": "Endpoints para criar harários de funcionamento",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/OpeningHour"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/OpeningHour"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/openingHour/{id}": {
+      "post": {
+        "tags": [
+          "OpeningHour"
+        ],
+        "description": "Endpoints para alterar harários de funcionamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required":true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/OpeningHour"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/OpeningHour"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "OpeningHour"
+        ],
+        "description": "Endpoints para excluir harários de funcionamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required":true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoints para obter todos os pedidos de venda",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/order/{id}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoints para alterar status da venda",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/OrderEdit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/paymentMethods": {
+      "get": {
+        "tags": [
+          "PaymentMethod"
+        ],
+        "description": "Endpoints para obter todas as formas de pagamento",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PaymentMethod"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PaymentMethod"
+        ],
+        "description": "Endpoints para obter criar formas de pagamento",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentMethod"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PaymentMethod"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/paymentMethods/{id}": {
+      "post": {
+        "tags": [
+          "PaymentMethod"
+        ],
+        "description": "Endpoints para obter alterar formas de pagamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/PaymentMethod"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PaymentMethod"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PaymentMethod"
+        ],
+        "description": "Endpoints para obter excluir formas de pagamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/plan": {
+      "get": {
+        "tags": [
+          "Plan"
+        ],
+        "description": "Endpoints para obter todos os planos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Plan"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Plan"
+        ],
+        "description": "Endpoints para criar planos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Plan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Plan"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/plan/{id}": {
+      "post": {
+        "tags": [
+          "Plan"
+        ],
+        "description": "Endpoints para alterar planos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Plan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Plan"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Plan"
+        ],
+        "description": "Endpoints para excluir planos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoints para obter todos os produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoints para criar produtos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/product/{id}": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoints para alterar produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoints para excluir produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/productClassification": {
+      "get": {
+        "tags": [
+          "ProductClassification"
+        ],
+        "description": "Endpoints para obter todas as classificações de produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductClassification"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductClassification"
+        ],
+        "description": "Endpoints para criar classificações de produtos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductClassification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductClassification"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/productClassification/{id}": {
+      "post": {
+        "tags": [
+          "ProductClassification"
+        ],
+        "description": "Endpoints para alterar classificações de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true          
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductClassification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductClassification"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductClassification"
+        ],
+        "description": "Endpoints para excluir classificações de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+            
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/productControl": {
+      "get": {
+        "tags": ["ProductControl"],
+        "description": "Endpoints para obter todos os controles de produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductControl"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["ProductControl"],
+        "description": "Endpoints para criar controle de produtos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductControl"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductControl"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/productControl/{id}": {
+      "post": {
+        "tags": ["ProductControl"],
+        "description": "Endpoints para alterar controle de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductControl"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductControl"
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ProductControl"],
+        "description": "Endpoints para excluir controle de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/productPromotion": {
+      "get": {
+        "tags": ["ProductPromotion"],
+        "description": "Endpoints para obter todas as promoções de produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductPromotion"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["ProductPromotion"],
+        "description": "Endpoints para criar promoções de produtos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductPromotion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductPromotion"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/productPromotion/{id}": {
+      "post": {
+        "tags": ["ProductPromotion"],
+        "description": "Endpoints para alterar promoções de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductPromotion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductPromotion"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ProductPromotion"],
+        "description": "Endpoints para excluir promoções de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/productSlug": {
+      "get": {
+        "tags": ["ProductSlug"],
+        "description": "Endpoint para obter slugs de produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductSlug"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["ProductSlug"],
+        "description": "Endpoint para criar slugs de produtos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductSlug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductSlug"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/productSlug/{id}": {
+      "post": {
+        "tags": ["ProductSlug"],
+        "description": "Endpoint para alterar slugs de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true 
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ProductSlug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ProductSlug"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ProductSlug"],
+        "description": "Endpoint para excluir slugs de produtos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true 
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/publicAddress": {
+      "get": {
+        "tags": ["PublicAddress"],
+        "description": "Endpoint para obter enderecos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PublicAddress"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["PublicAddress"],
+        "description": "Endpoint para criar enderecos",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref":"#/definitions/PublicAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PublicAddress"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/publicAddress/{id}": {
+      "post": {
+        "tags": ["PublicAddress"],
+        "description": "Endpoint alterar enderecos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref":"#/definitions/PublicAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PublicAddress"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["PublicAddress"],
+        "description": "Endpoint alterar enderecos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/salesHistory": {
+      "get": {
+        "tags": ["SalesHistory"],
+        "description": "Endpoint para obter historico de vendas",
+        "parameters": [
+          {
+            "name": "numberOrder",
+            "in": "query"
+          },
+          {
+            "name": "customerName",
+            "in": "query"
+          },
+          {
+            "name": "email",
+            "in": "query"
+          },
+          {
+            "name": "phone",
+            "in": "query"
+          },
+          {
+            "name": "createdAt",
+            "in": "query"
+          },
+          {
+            "name": "status",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/Order"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/showCase": {
+      "get": {
+        "tags": ["ShowCase"],
+        "description": "Endpoint para obter todas as vitrines",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ShowCase"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["ShowCase"],
+        "description": "Endpoint para criar vitrines",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ShowCase"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ShowCase"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/showCase/{id}": {
+      "post": {
+        "tags": ["ShowCase"],
+        "description": "Endpoint para alterar vitrine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ShowCase"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/ShowCase"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ShowCase"],
+        "description": "Endpoint para excluir vitrine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/state": {
+      "get": {
+        "tags": ["State"],
+        "description": "Endpoint para obter todos os estados",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/State" 
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["State"],
+        "description": "Endpoint para criar estados",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/State" 
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/state/{id}": {
+      "post": {
+        "tags": ["State"],
+        "description": "Endpoint para alterar estados",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/State" 
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["State"],
+        "description": "Endpoint para excluir estados",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/statistcsOrder": {
+      "get": {
+        "tags": ["StatisticOrder"],
+        "description":"Endpoint para obter totais de vendas",
+        "parameters": [
+          {
+            "name": "initalDate",
+            "in": "query"
+          },
+          {
+            "name": "finalDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/StatisticsOrder"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/lastOrdersPending": {
+      "get": {
+        "tags": [
+          "LastOrderPending"
+        ],
+        "description": "Endpoints para ver as vendas pendentes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref":"#/definitions/LastOrderPending"
+            }
+          },
+          "404": {
+            "description":"Not Found"
+          }
+        }
+      }
+    },
+    "/v1/statisticsCustomer": {
+      "get": {
+        "tags": ["StatisticsCustomer"],
+        "description":"Endpoint para obter numero de clientes cadastrados",
+        "parameters":[],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/Customer"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/StatusOrder": {
+      "get": {
+        "tags": ["StatusOrder"],
+        "description":"Endpoint para obter todos os status de vendas",
+        "parameters":[],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/StatusOrder"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["StatusOrder"],
+        "description":"Endpoint para criar status de vendas",
+        "parameters":[
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StatusOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/StatusOrder"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/StatusOrder/{id}": {
+      "post": {
+        "tags": ["StatusOrder"],
+        "description":"Endpoint para alterar status de vendas",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/StatusOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref":"#/definitions/StatusOrder"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["StatusOrder"],
+        "description":"Endpoint para excluir status de vendas",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/store": {
+      "get": {
+        "tags": ["Store"],
+        "description":"Endpoint para obter dados da loja",
+        "parameters":[],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Store"],
+        "description":"Endpoint para criar loja",
+        "parameters":[
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref":"#/definitions/Store"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/v1/store/{id}": {
+      "post": {
+        "tags": ["Store"],
+        "description":"Endpoint para alterar loja",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref":"#/definitions/Store"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Store"],
+        "description":"Endpoint para excluir loja",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AboutUs": {
+      "type": "object",
+      "properties": {
+        "content":{ 
+          "type" :"string"
+        },
+        "user": {
+          "type": "string"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "originalId":{ 
+          "type" :"number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "metaTitle": {
+          "type": "string"
+        },
+        "metaDescription": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }    
+    },
+    "Banner": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "array[]"
+        }
+      }
+    },
+    "Country": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "City": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "Cupom": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "initialDate": {
+          "type": "date"
+        },
+        "finalDate": {
+          "type": "date"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "descountPercentage": {
+          "type": "float"
+        },
+        "type": {
+          "type": "['PRODUCT','DELIVERY']"
+        },
+        "descountOnProduct": {
+          "type": "number"
+        },
+        "descountOnDelivery": {
+          "type": "number"
+        }
+      }
+    },
+    "Customer": {
+      "type":"object",
+      "properties": {
+        "externalId": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "password_salt": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "DeliveryFee": {
+      "type": "object",
+      "properties": {
+        "deliveryTime": {
+          "type": "number"
+        },
+        "feePrice": {
+          "type": "number"
+        },
+        "freeFrom": {
+          "type": "number"
+        },
+        "minimumPurchase": {
+          "type": "number"
+        },
+        "neighborhood": {
+          "type": "string"
+        }
+      }
+    },
+    "Erp": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dialect": {
+          "type": "string"
+        }
+      }
+    },
+    "IntegrationSQL": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sql": {
+          "type": "string"
+        },
+        "erp": {
+          "type": "string"
+        }
+      }
+    },
+    "Manufacturer": {
+      "type": "object",
+      "properties": {
+        "originalId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "array[]"
+        }
+      }
+    },
+    "Neighborhood": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        }
+      }
+    },
+    "OpeningHour": {
+      "type": "object",
+      "properties": {
+        "weekDay": {
+          "type": "['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT','HOLIDAY']"
+        },
+        "openingTime": {
+          "type": "string"
+        },
+        "closingTime": {
+          "type": "string"
+        }
+      }
+    },
+    "PaymentMethod": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "['debit','credit', 'covenant','money']"
+        }
+      }
+    },
+    "Plan":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "HistoryAboutUs":{
+      "type": "object",
+      "properties": {
+        "oldContent": {
+          "type": "string"
+        },
+        "aboutUs": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      }
+    },
+    "HistoryOrder":{
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "string"
+        },
+        "authorType": {
+          "type": "enum['COSTUMER', 'ADMIN']"
+        },
+        "costumer": {
+          "type": "string"   
+        },
+        "admin": {
+          "type": "string"
+        },
+        "oldStatus": {
+          "type": "string"      
+        },
+        "newStatus": {
+         "type": "string"     
+        },
+        "comments": {
+          "type": "string"
+        }
+      }
+    },
+    "LastOrderPending":{
+      "type": "object",
+      "properties": {
+        "orderPending": {
+          "type": "number"
+        }
+      }
+    },
+    "Product":{
+      "type": "object",
+      "properties": {
+        "EAN": {
+          "type": "string"
+        },
+        "MS": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "presentation": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string"
+        },
+        "control": {
+          "type": "string"
+        },
+        "activePrinciple": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"       
+        },
+        "verify": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductClassification":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductControl":{
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "initials": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductPromotion":{
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number"
+        },
+        "initalDate": {
+          "type": "date"
+        },
+        "finalDate": {
+          "type": "date"
+        },
+        "product": {
+         "type": "string"
+        }
+      }
+    },
+    "ProductSlug":{
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        }
+      }
+    },
+    "PublicAddress":{
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "number": {
+          "type": "number"
+        }, 
+        "complement": {
+          "type": "string"
+        },
+        "neighborhood": {
+          "type": "string"
+        }
+      }
+    },
+    "SalesHistory":{},
+    "ShowCase":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "initialDate": {
+          "type": "date"
+        },
+        "finalDate": {
+          "type": "date"
+        },
+        "products": {
+          "type": "object"
+        },
+        "position": {
+          "type": "number"
+        },
+        "status" : {
+          "type": "boolean"
+        }
+      }
+    },
+    "State":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "clientIP": {
+          "type": "string"
+        },
+        "products":[
+          {
+            "productId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "unitaryValue": {
+              "type": "number"
+            },
+            "promotionalPrice": {
+              "type": "number"
+            },
+            "amount": {
+              "type": "number"
+            }
+          }
+        ],
+        "totalOrder": {
+          "type": "string"
+        },
+        "deliveryData": {     
+          "deliverFeeID": {
+            "type": "string"
+          },
+          "deliveryFee": {
+            "type": "number"
+          },
+          "deliveryTime": {
+            "type": "number"
+          }
+        },
+        "statusOrder": {
+          "type": "string"
+        },
+        "customer": {
+          "type": "string"
+        }
+      }
+    },
+    "OrderEdit": {
+      "type": "object",
+      "properties": {
+        "statusOrder": {
+          "type": "string"
+        }
+      }
+    },
+    "StatisticsOrder":{
+      "type": "object",
+      "properties": {
+        "totalOrder": {
+          "type": "number"
+        },
+        "orderAccept": {
+          "type": "number"
+        },
+        "orderReject": {
+          "type": "number"
+        },
+        "orderPending": {
+          "type": "number"
+        },
+        "valueSold": {
+          "type": "number"
+        }
+      }
+    },
+    "StatisticsCustomer":{},
+    "StatusOrder":{
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "['accepted', 'pending' ,'rejected']"
+        }
+      }
+    },
+    "Store":{
+      "type": "object",
+      "properties": {
+        "external_id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "PMC_id": {
+          "type": "number"
+        },
+        "settings": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

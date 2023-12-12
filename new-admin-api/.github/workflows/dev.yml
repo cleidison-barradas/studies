@@ -1,0 +1,101 @@
+name: Admin API Dev Deploy
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_DEV_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create dev environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_HOST: ${{ secrets.DEV_MONGO_HOST }}
+          envkey_DATABASE_NAME: ${{ secrets.DEV_MONGO_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DEV_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DEV_MONGO_PASSWORD }}
+          envkey_DATABASE_PORT: ${{ secrets.DEV_MONGO_PORT }}
+          envkey_HTTP_SERVER_PORT: ${{ secrets.DEV_HTTP_SERVER_PORT }}
+          envkey_JWT_ISSUER: ${{ secrets.DEV_JWT_ISSUER }}
+          envkey_JWT_SUBJECT: ${{ secrets.DEV_JWT_SUBJECT }}
+          envkey_JWT_AUDIENCE: ${{ secrets.DEV_JWT_AUDIENCE }}
+          envkey_JWT_EXPIRES: ${{ secrets.DEV_JWT_EXPIRES }}
+          envkey_JWT_ALGORITHM: ${{ secrets.DEV_JWT_ALGORITHM }}
+          envkey_AWS_S3_BUCKET: ${{ secrets.DEV_AWS_S3_BUCKET }}
+          envkey_AWS_S3_KEY_ID: ${{ secrets.DEV_AWS_S3_KEY_ID }}
+          envkey_AWS_S3_ACCESS_KEY: ${{ secrets.DEV_AWS_S3_ACCESS_KEY }}
+          envkey_AWS_S3_REGION: ${{ secrets.DEV_AWS_S3_REGION }}
+          envkey_PAYMENT_API: ${{ secrets.DEV_PAYMENT_API }}
+          envkey_SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+          envkey_SENDGRID_USER: ${{ secrets.SENDGRID_USER }}
+          envkey_GERENCIANET_PIX_URL: ${{ secrets.GERENCIANET_PIX_URL }}
+          envkey_AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
+          envkey_WEBHOOK_API_URL: ${{ secrets.DEV_WEBHOOK_API_URL }}
+          envkey_AMQP_ETL: ${{ secrets.DEV_AMQP_ETL }}
+          envkey_AMQP_HOST: ${{ secrets.DEV_AMQP_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.DEV_REDIS_PORT }}
+          envkey_REDIS_HOST: ${{ secrets.DEV_REDIS_HOST }}
+          envkey_REDIS_PASSWORD: ${{ secrets.DEV_REDIS_PASSWORD }}
+          envkey_NODE_ENV: development
+          envkey_PORT: ${{ secrets.PORT }}
+          envkey_AMQP_ERP_MAIN: ${{ secrets.DEV_AMQP_ERP_MAIN }}
+          envkey_AMQP_ERP_DEAD: ${{ secrets.DEV_AMQP_ERP_DEAD }}
+          envkey_AMQP_HOST_HANDLER: ${{ secrets.DEV_AMQP_HOST_HANDLER }}
+          envkey_GEAOAPIFY_KEY: ${{secrets.GEAOAPIFY_KEY}}
+          envkey_PLUGGTO_URL: ${{ secrets.PLUGGTO_URL}}
+          envkey_EPHARMA_BASE_URL: ${{ secrets.DEV_EPHARMA_BASE_URL}}
+
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO
+
+  deployAws:
+    name: Push task definition and deploy to ECS
+    runs-on: ubuntu-22.04
+    needs: [docker]
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+          aws-region: us-east-2
+
+      - name: Download task definition
+        run: aws ecs describe-task-definition --task-definition NewAdminApiTD --query taskDefinition > task-definition.json
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: NewAdminApiContainer
+          image: mypharmabr/admin-api-dev:latest
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: NewAdminApiService2
+          cluster: DevCluster
+          wait-for-service-stability: true

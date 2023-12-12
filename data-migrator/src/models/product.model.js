@@ -1,0 +1,42 @@
+const Sequelize = require('sequelize');
+
+const Product = {
+    product_id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    model: Sequelize.STRING(255),
+    sku: Sequelize.STRING(64),
+    upc: Sequelize.STRING(12),
+    ean: Sequelize.STRING(14),
+    jan: Sequelize.STRING(13),
+    isbn: Sequelize.STRING(17),
+    mpn: Sequelize.STRING(64),
+    ms: Sequelize.STRING(255),
+    location: Sequelize.STRING(128),
+    quantity: {type: Sequelize.INTEGER(4), defaultValue: 0},
+    stock_status_id: Sequelize.INTEGER(11),
+    image: Sequelize.STRING(255),
+    manufacturer_id: Sequelize.INTEGER(11),
+    shipping: {type: Sequelize.TINYINT(1), defaultValue: 1},
+    price: {type: Sequelize.DECIMAL(15, 4), defaultValue: 0.0000},
+    points: {type: Sequelize.INTEGER(8), defaultValue: 0},
+    tax_class_id: Sequelize.INTEGER(11),
+    date_available: {type: Sequelize.DATEONLY, defaultValue: '0000-00-00'},
+    weight: {type: Sequelize.DECIMAL(15,8), defaultValue: 0.00000000},
+    weight_class_id: {type: Sequelize.INTEGER(11), defaultValue: 0},
+    length: {type: Sequelize.DECIMAL(15,8), defaultValue: 0.00000000},
+    width: {type: Sequelize.DECIMAL(15,8), defaultValue: 0.00000000},
+    height: {type: Sequelize.DECIMAL(15,8), defaultValue: 0.00000000},
+    length_class_id: {type: Sequelize.INTEGER(11), defaultValue: 0},
+    subtract: {type: Sequelize.TINYINT(1), defaultValue: 1},
+    minimum: {type: Sequelize.INTEGER(11), defaultValue: 1},
+    sort_order: {type: Sequelize.INTEGER(11), defaultValue: 0},
+    control_id: Sequelize.INTEGER(10),
+    classification_id: Sequelize.INTEGER(10),
+    active_principle: Sequelize.STRING(255),
+    status: {type: Sequelize.TINYINT(1), defaultValue: 0},
+    verified: {type: Sequelize.TINYINT(1), defaultValue: 1},
+    viewed: {type: Sequelize.INTEGER(5), defaultValue: 0},
+    date_added: Sequelize.DATE,
+    date_modified: Sequelize.DATE
+}
+
+module.exports = Product;

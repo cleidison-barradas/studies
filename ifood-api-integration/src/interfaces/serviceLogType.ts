@@ -1,0 +1,1 @@
+export type ILogType = 'etl' | 'erp-api' | 'ifood'

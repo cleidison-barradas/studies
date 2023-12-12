@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  reverse-proxy:
+    external:
+      name: reverse-proxy
+services:
+  monitorador.mypharma.com.br-app:
+    image: webdevops/php-apache:7.3
+    container_name: monitorador.mypharma.com.br-app
+    restart: always
+    networks:
+      - reverse-proxy
+    volumes:
+      - .:/var/www/app
+    environment:
+      - VIRTUAL_HOST=monitorador.mypharma.com.br
+      - WEB_DOCUMENT_ROOT=/var/www/app/public
+      - LETSENCRYPT_EMAIL=certificate@monitorador.mypharma.com.br
+      - LETSENCRYPT_HOST=monitorador.mypharma.com.br
+

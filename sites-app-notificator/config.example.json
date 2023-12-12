@@ -1,0 +1,15 @@
+{
+  "server": {
+    "url": "https://notificador-new.mypharma.com.br",
+    "socket": "ws://18.217.253.162:8683"
+  },
+  "repository": {
+    "owner": "mypharmabr",
+    "name": "sites-app-notificator",
+    "accessToken": "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",
+    "repo": "sites-app-notificator"
+  },
+  "admin": {
+    "url": "https://admin.mypharma.com.br/"
+  }
+}

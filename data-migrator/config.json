@@ -1,0 +1,286 @@
+{
+  "models": [
+    {
+      "table": "oc_setting",
+      "schema": "SettingSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_pmc_regions",
+      "schema": "PMCRegionSchema"
+    },
+    {
+      "table": "oc_store",
+      "schema": "StoreSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_user",
+      "schema": "UserSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_order_status",
+      "schema": "StatusOrderSchema"
+    },
+    {
+      "table": "oc_customer",
+      "schema": "CustomerSchema",
+      "getByField": "store_id",
+      "query": "select customer_id, firstname, lastname, CONCAT(firstname, ' ', lastname) as full_name, email, telephone, birthdate, password, salt, status from oc_customer"
+    },
+    {
+      "table": "oc_about_us",
+      "schema": "AboutUsSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_classification",
+      "schema": "ProductClassificationSchema"
+    },
+    {
+      "table": "oc_control",
+      "schema": "ProductControlSchema"
+    },
+    {
+      "table": "oc_manufacturer",
+      "schema": "ManufacturerSchema"
+    },
+    {
+      "table": "oc_category",
+      "schema": "CategorySchema",
+      "query": "select * from oc_category as c inner join oc_category_description as cd on c.category_id= cd.category_id"
+    },
+    {
+      "table": "oc_country",
+      "schema": "CountrySchema",
+      "query": "SELECT * from oc_country WHERE country_id=30"
+    },
+    {
+      "table": "oc_zone",
+      "schema": "StateSchema",
+      "query": "SELECT * from oc_zone WHERE country_id=30"
+    },
+    {
+      "table": "oc_city",
+      "schema": "CitySchema"
+    },
+    {
+      "table": "oc_neighborhood",
+      "schema": "NeighborhoodSchema"
+    },
+    {
+      "table": "oc_store_delivery",
+      "schema": "DeliveryFeeSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_product_to_multistore",
+      "schema": "ProductSchema",
+      "getByField": "store_id",
+      "query": "select pm.product_id, pm.price, pm.quantity, p.model, p.ean, p.ms, p.image, p.manufacturer_id, p.classification_id, p.control_id, p.active_principle, p.status, p.verified, p.cached, CONCAT(p.model, ' ', pd.name) as name, pd.description, pd.meta_title, pd.meta_description, pd.meta_keyword, pu.url from oc_product_to_multistore as pm inner join oc_product as p on pm.product_id=p.product_id inner join oc_product_description as pd on pm.product_id=pd.product_id inner join oc_product_url as pu on pm.product_id=pu.product_id"
+    },
+    {
+      "table": "oc_module",
+      "schema": "ShowCaseSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_product_special_multistore",
+      "schema": "SpecialProductSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_address",
+      "schema": "AddressSchema",
+      "getByField": "store_id"
+    },
+    {
+      "table": "oc_order",
+      "schema": "OrderSchema",
+      "getByField": "store_id"
+    }
+  ],
+  "fieldsToPopulate": [
+    {
+      "targetSchema": "CategorySchema",
+      "childs": [
+        {
+          "key": "parentId",
+          "field": "subCategories",
+          "target": "CategorySchema",
+          "defaultSave": false
+        }
+      ]
+    },
+    {
+      "targetSchema": "StoreSchema",
+      "childs": [
+        {
+          "key": "originalPmcId",
+          "field": "pmc",
+          "target": "PMCRegionSchema",
+          "defaultSave": false
+        },
+        {
+          "key": "setting",
+          "field": "settings",
+          "target": "SettingSchema",
+          "defaultSave": false
+        }
+      ]
+    },
+    {
+      "targetSchema": "UserSchema",
+      "childs": [
+        {
+          "key": "originalStoreId",
+          "field": "store",
+          "target": "StoreSchema",
+          "defaultSave": false
+        }
+      ]
+    },
+    {
+      "targetSchema": "StateSchema",
+      "childs": [
+        {
+          "key": "originalCountryId",
+          "field": "country",
+          "target": "CountrySchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "CitySchema",
+      "childs": [
+        {
+          "key": "originalStateId",
+          "field": "state",
+          "target": "StateSchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "NeighborhoodSchema",
+      "childs": [
+        {
+          "key": "originalCityId",
+          "field": "city",
+          "target": "CitySchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "AddressSchema",
+      "childs": [
+        {
+          "key": "originalNeighborhoodId",
+          "field": "neighborhood",
+          "target": "NeighborhoodSchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "ProductSchema",
+      "childs": [
+        {
+          "key": "originalManufacturerId",
+          "field": "manufacturer",
+          "target": "ManufacturerSchema",
+          "defaultSave": true
+        },
+        {
+          "key": "originalClassificationId",
+          "field": "classification",
+          "target": "ProductClassificationSchema",
+          "defaultSave": true
+        },
+        {
+          "key": "originalControlId",
+          "field": "control",
+          "target": "ProductControlSchema",
+          "defaultSave": true
+        },
+        {
+          "key": "originalId",
+          "field": "category",
+          "target": "CategorySchema",
+          "defaultSave": false
+        },
+        {
+          "key": "imageUrl",
+          "field": "image",
+          "target": "FileSchema",
+          "defaultSave": false
+        },
+        {
+          "key": "originalId",
+          "field": "specials",
+          "target": "SpecialProductSchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "ShowCaseSchema",
+      "childs": [
+        {
+          "key": "settings",
+          "field": "products",
+          "target": "ProductSchema",
+          "defaultSave": false
+        }
+      ]
+    },
+    {
+      "targetSchema": "DeliveryFeeSchema",
+      "childs": [
+        {
+          "key": "originalNeighborhoodId",
+          "field": "neighborhood",
+          "target": "NeighborhoodSchema",
+          "defaultSave": true
+        }
+      ]
+    },
+    {
+      "targetSchema": "CustomerSchema",
+      "childs": [
+        {
+          "key": "originalId",
+          "field": "addresses",
+          "target": "AddressSchema",
+          "defaultSave": false
+        }
+      ]
+    },
+    {
+      "targetSchema": "OrderSchema",
+      "childs": [
+        {
+          "key": "originalCustomerId",
+          "field": "customer",
+          "target": "CustomerSchema",
+          "defaultSave": true
+        },
+        {
+          "key": "originalStatusId",
+          "field": "statusOrder",
+          "target": "StatusOrderSchema",
+          "defaultSave": true
+        },
+        {
+          "key": "originalId",
+          "field": "products",
+          "target": "ProductSchema",
+          "defaultSave": false
+        }
+      ]
+    }
+  ]
+}

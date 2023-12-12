@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  import-api:
+    image: ambientum/node:16
+    container_name: import-api
+    command: bash -c "npm i && npm run dev"
+    ports:
+      - '${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}'
+    volumes:
+      - .:/var/www/app

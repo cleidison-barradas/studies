@@ -1,0 +1,1 @@
+export type ImportType = 'promotion' | 'product'

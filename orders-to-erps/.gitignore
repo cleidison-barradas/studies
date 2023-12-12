@@ -1,0 +1,11 @@
+.DS_Store
+.vscode
+node_modules
+package-lock.json
+app.log
+.envsendgrid.env
+sendgrid.env
+yarn.lock
+.env.*.local
+.env
+.editorconfig

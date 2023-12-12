@@ -1,0 +1,58 @@
+name: Backoffice API Dev Deploy
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_DEV_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create dev environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_ENV: alpha
+          envkey_DATABASE_HOST: ${{ secrets.DEV_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.DEV_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.DEV_MONGO_NAME }}
+          envkey_DATABASE_MASTER_NAME: ${{ secrets.DEV_MONGO_MASTER_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DEV_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DEV_MONGO_PASSWORD }}
+          envkey_DATABASE_AUTH_SOURCE: ${{ secrets.DEV_MONGO_AUTH_SOURCE }}
+          envkey_AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          envkey_AWS_S3_KEY_ID: ${{ secrets.AWS_S3_KEY_ID }}
+          envkey_AWS_S3_ACCESS_KEY: ${{ secrets.AWS_S3_ACCESS_KEY }}
+          envkey_AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
+          envkey_DATABASE_INTEGRATION_NAME: ${{ secrets.DATABASE_INTEGRATION_NAME }}
+          envkey_AMQP_HOST: ${{ secrets.DEV_AMQP_HOST }}
+          envkey_AMQP_HOST_GMV: ${{ secrets.DEV_AMQP_HOST_GMV }}
+          envkey_GMV_REPORT_FILE: ${{ secrets.GMV_REPORT_FILE }}
+          envkey_NODE_ENV: development
+
+          envkey_PORT: ${{ secrets.PORT }}
+
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Build Project
+        run: npm run build
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO

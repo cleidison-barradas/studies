@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+tmp/
+temp/
+.env
+.env.*
+package-lock.json
+yarn.lock

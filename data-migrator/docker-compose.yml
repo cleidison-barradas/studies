@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  data-migrator:
+    container_name: data-migrator
+    image: ambientum/node:16
+    command: bash -c "npm i && npm start"
+    volumes:
+      - .:/var/www/app

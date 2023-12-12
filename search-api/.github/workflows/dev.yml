@@ -1,0 +1,53 @@
+name: Search API Dev Deploy
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_DEV_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create dev environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_ELASTICSEARCH_HOST: ${{ secrets.DEV_ELASTICSEARCH_HOST }}
+          envkey_ELASTICSEARCH_USERNAME: ${{ secrets.DEV_ELASTICSEARCH_USERNAME }}
+          envkey_ELASTICSEARCH_PASSWORD: ${{ secrets.DEV_ELASTICSEARCH_PASSWORD }}
+          envkey_REDIS_HOST: ${{ secrets.DEV_REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.DEV_REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.DEV_REDIS_PASSWORD }}
+          envkey_HTTP_SERVER_PORT: ${{ secrets.DEV_HTTP_SERVER_PORT }}
+          envkey_HTTP_ACCESS_LOG_FILE: ${{ secrets.DEV_HTTP_ACCESS_LOG_FILE }}
+          envkey_HTTP_ERROR_LOG_FILE: ${{ secrets.DEV_HTTP_ERROR_LOG_FILE }}
+          envkey_DATABASE_HOST: ${{ secrets.DEV_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.DEV_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.DEV_MONGO_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DEV_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DEV_MONGO_PASSWORD }}
+          envkey_DATABASE_ENV: alpha
+          envkey_AMQP_HOST: ${{ secrets.DEV_AMQP_HOST }}
+          envkey_PORT : ${{ secrets.PORT }}
+          envkey_NODE_ENV: development
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO

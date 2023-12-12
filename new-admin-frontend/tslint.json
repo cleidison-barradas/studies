@@ -1,0 +1,27 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "jsx-key": true,
+        "jsx-no-string-ref": true,
+        "jsx-space-before-trailing-slash": true,
+        "jsx-boolean-value": false,
+        "max-classes-per-file": false,
+        "no-string-literal": false,
+        "no-console": false,
+        "no-shadowed-variable": false,
+        "semicolon": [
+            true,
+            "never"
+        ],
+        "variable-name": [
+            "allow-leading-underscore"
+        ],
+        "jsx-no-lambda": false
+    },
+    "rulesDirectory": []
+}

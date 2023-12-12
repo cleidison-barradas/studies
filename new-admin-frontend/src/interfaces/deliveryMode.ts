@@ -1,0 +1,1 @@
+export type deliveryMode = 'store_pickup' | 'own_delivery' | 'delivery_company'

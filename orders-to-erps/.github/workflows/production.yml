@@ -1,0 +1,53 @@
+name: ERP Orders API Production Deploy
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_PRODUCTION_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create production environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_ENV: production
+          envkey_DATABASE_HOST: ${{ secrets.PROD_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.PROD_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.PROD_MONGO_NAME }}
+          envkey_DATABASE_USER: ${{ secrets.PROD_MONGO_USER }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.PROD_MONGO_PASSWORD }}
+          envkey_DATABASE_INTEGRATION: ${{ secrets.MONGO_DATABASE_INTEGRATION }}
+          envkey_REDIS_HOST: ${{ secrets.PROD_REDIS_HOST }}
+          envkey_REDIS_PORT: ${{ secrets.PROD_REDIS_PORT }}
+          envkey_REDIS_PASSWORD: ${{ secrets.PROD_REDIS_PASSWORD }}
+          envkey_AMQP_HOST: ${{ secrets.AMQP_HOST }}
+          envkey_AMQP_CACHE_HOST: ${{ secrets.AMQP_CACHE_HOST }}
+          envkey_PORT: ${{secrets.PORT}}
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Running Tests
+        run: npm run test
+
+      - name: Running Tests
+        run: npm run test
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO

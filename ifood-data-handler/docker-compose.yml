@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ifood-data-handler:
+    image: ambientum/node:16
+    container_name: ifood-data-handler
+    command: bash -c "npm i && npm run dev"
+    volumes:
+      - .:/var/www/app

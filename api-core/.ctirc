@@ -1,0 +1,9 @@
+{
+  "addNewline": true,
+  "useSemicolon": false,
+  "useTimestamp": false,
+  "useComment": true,
+  "exportFilename": "index.ts",
+  "quote": "'",
+  "withoutBackupFile": true
+}

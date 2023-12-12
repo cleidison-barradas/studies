@@ -1,0 +1,1 @@
+export type PaymentType = 'gateway' | 'debit' | 'money' | 'covenant' | 'credit' | 'ticket'

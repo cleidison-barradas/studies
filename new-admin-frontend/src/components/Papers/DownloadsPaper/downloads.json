@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Notificador de Pedidos",
+        "links": [
+          {
+            "name": "32 bits",
+            "link": "https://myp-public.s3.us-west-2.amazonaws.com/notificator/releases/1.0.14/Mypharma.Notificador-1.0.14.Setup.exe"
+          },
+          {
+            "name": "64 bits",
+            "link": "https://myp-public.s3.us-west-2.amazonaws.com/notificator/releases/1.0.14/Mypharma.Notificador-1.0.14.Setup.exe"
+          }
+      ],
+        "image": "notificador.svg",
+        "description": "Uma plataforma para o serviço de notificar seu computador ou celular para que seja avisado de novos pedidos feitos pelo site MyPharma."
+    },
+    {
+        "name": "AnyDesk",
+        "link": "https://anydesk.com/pt/downloads/windows",
+        "image": "anydesk.jpg",
+        "description": "AnyDesk é um aplicativo de desktop remoto. Fornece acesso remoto independente de plataforma a computadores pessoais e outros dispositivos que executam o aplicativo host."
+    },
+    {
+        "name": "Integrador de Produtos",
+        "link": "https://myp-public.s3-us-west-2.amazonaws.com/importador_produtos/Importador.zip",
+        "image": "integrador.svg",
+        "description": "Um sistema que faz integração automática dos seus produtos em seu ERP."
+    }
+]

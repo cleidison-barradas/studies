@@ -1,0 +1,911 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Api de integracão de Pedidos das Lojas",
+    "termsOfService": "http://api_url/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "A API DE INTEGRAÇÃO DE PEDIDOS SEMPRE RETORNA PEDIDOS COM OS SEGUINTES STATUS: ACEITO, SAIU PARA ENTREGA, ENTREGA REALIZADA, APÓS OBTER A LISTA DE PEDIDOS ACESSE A ROTA DE UpdateOrder PARA ALTERAR O STATUS DO PEDIDO PARA QUE ELE SEJA ELIMINADO DA LISTA. PEDIDOS CANCELADOS E/OU OUTROS STATUS NÃO SERÃO RETORNADOS."
+  },
+  "servers": [
+    {
+      "url": "https://erp.orders.mypharma.com.br/v1",
+      "description": "Production v1"
+    },
+    {
+      "url": "https://erp.orders.mypharma.com.br/v2",
+      "description": "Production v2"
+    },
+    {
+      "url": "https://erp.orders.mypharma.com.br/v3",
+      "description": "Production v3"
+    }
+  ],
+  "paths": {
+    "/session": {
+      "post": {
+        "tags": [
+          "SessionLogin"
+        ],
+        "description": "Authenticate user",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userAuth"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The user has been authenticate and the JWT returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSessionUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid credentials",
+                  "code": 401,
+                  "error": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integration/products": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": {}
+          }
+        ],
+        "tags": [
+          "ListOrders"
+        ],
+        "description": "Return all products the store selected",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "product list size per page"
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "description": "order creation date"
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "description": "order update date"
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "example": "accepted, delivery_made, out_delivery, integrated_in_erp, erp_integration_error"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/requestOrder"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/order"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error not provided store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_informed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error invalid store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid_token"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error store not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/order": {
+      "put": {
+        "security": [
+          {
+            "bearerAuth": {}
+          }
+        ],
+        "tags": [
+          "UpdateOrder"
+        ],
+        "description": "Update Status order V2 only",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUpdateOrder"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Return if the update was successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUpdateOrder"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error not provided store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_informed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error invalid store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid_token"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error store not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/products": {
+      "put": {
+        "security": [
+          {
+            "bearerAuth": {}
+          }
+        ],
+        "tags": [
+          "UpdateProducts"
+        ],
+        "description": "Endpoint existe somente na v3. Requisição máxima de até 5.000 produtos. Os produtos serão colocados em fila e então atualizados ou inseridos se for a primeira carga , em um processo que leva de 2 a 5 minutos.",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUpdateProducts"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Return if the update was successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUpdateProduct"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error not provided store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_informed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error invalid store_token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid_token"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error store not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "store_not_found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "name": {
+        "type": "string",
+        "example": "David Gilmor"
+      },
+      "email": {
+        "type": "string",
+        "example": "pinkfloyd@gmail.com"
+      },
+      "password": {
+        "type": "string",
+        "example": "************"
+      },
+      "store_token": {
+        "type": "string",
+        "example": "722e4039-4898-481f-99b0-a00145927449"
+      },
+      "jwtToken": {
+        "type": "string",
+        "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6NSwiZW1haWwiOiJjbGVpZGlzb25AdW9sLmNvbSIsInBhc3N3b3JkIjoiOGNiMjIzN2QwNjc5Y2E4OGRiNjQ2NGVhYzYwZGE5NjM0NTUxMzk2NCIsImlhdCI6MTYwNzk4Mzc1MiwiZXhwIjoxNjA4NjMxNzUyLCJhdWQiOiJodHRwczovL3d3dy5teXBoYXJtYS5jb20uYnIvIiwiaXNzIjoiTXlQaGFybWEiLCJzdWIiOiJjb21lcmNpYWxAbXlwaGFybWEubmV0LmJyIn0.a3EJHCoK5SDDw6-sHkHeqZeNrp_K0CcmYnpCXUT_LvnZGBae1XmNZJ7-j8Pll0nK2tUT_F-Ywa5HdDElkcqZrRnByfoR5FF-rvbUA4XpTOvYjlwstmHZh02etK3PgCSqXcpcGRiPjSWDL_sfLsfMm2pFykn-lDrqNT2BYu_gifo"
+      },
+      "page": {
+        "type": "number",
+        "example": 1
+      },
+      "requestOrder": {
+        "type": "object",
+        "properties": {
+          "store_token": {
+            "$ref": "#/components/schemas/store_token"
+          }
+        }
+      },
+      "order": {
+        "type": "object",
+        "properties": {
+          "orders": {
+            "$ref": "#/components/schemas/orderResponse"
+          }
+        }
+      },
+      "orderResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "number",
+              "example": 17628
+            },
+            "store_name": {
+              "type": "string",
+              "example": "Store registered in this erp"
+            },
+            "store_url": {
+              "type": "string",
+              "example": "https://storepharmacy.com.br/"
+            },
+            "customer": {
+              "$ref": "#/components/schemas/customer"
+            },
+            "total": {
+              "type": "number",
+              "example": 129.00
+            },
+            "orderStatus": {
+              "$ref": "#/components/schemas/orderStatus"
+            },
+            "payment_method": {
+              "$ref": "#/components/schemas/paymentMethods"
+            },
+            "payment_code": {
+              "$ref": "#/components/schemas/paymentMethods"
+            },
+            "date_added": {
+              "type": "date",
+              "example": "2020-11-11T17:32:21.000Z"
+            },
+            "orderProducts": {
+              "$ref": "#/components/schemas/orderProducts"
+            },
+            "paymentOrders": {
+              "$ref": "#/components/schemas/paymentOrders"
+            },
+            "orderTotals": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/orderTotals"
+              },
+              "example": [
+                {
+                  "code": "sub_total",
+                  "title": "Sub-total",
+                  "value": "15.68"
+                },
+                {
+                  "code": "total",
+                  "title": "Total",
+                  "value": "20.68"
+                },
+                {
+                  "code": "shipping",
+                  "title": "Frete",
+                  "value": "5.00"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "orderTotals": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "shipping"
+          },
+          "title": {
+            "type": "string",
+            "example": "Frete"
+          },
+          "value": {
+            "type": "number",
+            "example": "5.00"
+          }
+        }
+      },
+      "orderStatus": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Aceito",
+            "enum": [
+              "Aceito",
+              "Saiu para Entrega",
+              "Entrega Realizada"
+            ]
+          }
+        }
+      },
+      "payment_code": {
+        "type": "string",
+        "example": "Pagamento na Entrega",
+        "description": "MÉTODO PAGAMENTO (PAGAMENTO NA ENTREGA) (PAGAMENTO NA RETIRADA) (PAGAMENTO ONLINE)",
+        "enum": [
+          "Pagamento na entrega",
+          "Pagamento na retirada",
+          "Pagamento online"
+        ]
+      },
+      "payment_method": {
+        "type": "string",
+        "example": "Pagamento na Entrega",
+        "description": "MÉTODO PAGAMENTO (PAGAMENTO NA ENTREGA) (PAGAMENTO NA RETIRADA) (PAGAMENTO ONLINE)",
+        "enum": [
+          "Pagamento na entrega",
+          "Pagamento na retirada",
+          "Pagamento online"
+        ]
+      },
+      "paymentOrders": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "money_change": {
+              "type": "number",
+              "example": "R$ 50.00",
+              "description": "ESTE CAMPO SERÁ PREENCHIDO SOMENTE SE A FORMA DE PAGAMENTO FOR NA ENTREGA, HAVENDO NECESSIDADE DE TROCO SERÁ PREENCHIDO O VALOR PARA TROCO"
+            },
+            "conven_id": {
+              "type": "number",
+              "example": 100,
+              "description": "CAMPO REFRENTE À VENDAS COM ALGUM CONVÊNIO"
+            },
+            "conven_password": {
+              "type": "number",
+              "example": 0,
+              "description": "CAMPO REFRENTE À VENDAS COM ALGUM CONVÊNIO"
+            },
+            "paymentOptions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/paymentOptions"
+              },
+              "example": [
+                {
+                  "name": "PICPAY",
+                  "type": "gateway",
+                  "installments": 1
+                },
+                {
+                  "name": "PAGSEGURO",
+                  "type": "gateway",
+                  "installments": 1
+                },
+                {
+                  "name": "VISA",
+                  "type": "credit",
+                  "installments": 1
+                },
+                {
+                  "name": "VISA",
+                  "type": "debit",
+                  "installments": 1
+                },
+                {
+                  "name": "MASTER",
+                  "type": "credit",
+                  "installments": 1
+                },
+                {
+                  "name": "MASTER",
+                  "type": "debit",
+                  "installments": 1
+                },
+                {
+                  "name": "ELO",
+                  "type": "credit",
+                  "installments": 1
+                },
+                {
+                  "name": "ELO",
+                  "type": "debit",
+                  "installments": 1
+                },
+                {
+                  "name": "AMERICAN EXPRESS",
+                  "type": "credit",
+                  "installments": 1
+                },
+                {
+                  "name": "AMERICAN EXPRESS",
+                  "type": "debit",
+                  "installments": 1
+                },
+                {
+                  "name": "Dinheiro",
+                  "type": "money",
+                  "installments": 1
+                },
+                {
+                  "name": "CONVENIO",
+                  "type": "covenant",
+                  "installments": 1,
+                  "description": "NOME DO CONVÊNIO A SER DEFINIDO PELA FARMÁCIA (NO MOMENTO ESTÁ EM DESENVOLVIMENTO ESTE TIPO DE PAGAMENTO)"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "paymentOptions": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dinheiro"
+          },
+          "type": {
+            "type": "string",
+            "example": "money"
+          },
+          "installments": {
+            "type": "number",
+            "exemple": 1
+          }
+        }
+      },
+      "orderProducts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "number",
+              "example": 2
+            },
+            "price": {
+              "type": "number",
+              "example": 24.99
+            },
+            "total": {
+              "type": "number",
+              "example": "49.89"
+            },
+            "products": {
+              "$ref": "#/components/schemas/Products"
+            }
+          }
+        }
+      },
+      "Products": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "example": "IVERMECTINA"
+          },
+          "ean": {
+            "type": "string",
+            "example": "7898049793310"
+          },
+          "ms": {
+            "type": "string",
+            "example": null
+          },
+          "sku": {
+            "type": "string",
+            "example": "123"
+          }
+        }
+      },
+      "customer": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": "Steve"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Harris"
+          },
+          "email": {
+            "type": "string",
+            "example": "customer@email.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000.00"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "00-00000000"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "shipping_company": {
+                "type": "string",
+                "example": "address complement",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_address_1": {
+                "type": "string",
+                "example": "address street",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_address_2": {
+                "type": "string",
+                "example": "address neighborhood",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_city": {
+                "type": "string",
+                "example": "address city",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_postcode": {
+                "type": "string",
+                "example": "00000000",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_zone": {
+                "type": "string",
+                "example": "address state",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "shipping_country": {
+                "type": "string",
+                "example": "address country",
+                "description": "ALL INFORMATION REGARDING DELIVERY WILL BE TRANSFERRED IN THESE FIELDS."
+              },
+              "withdraw_in_store": {
+                "type": "boolean",
+                "example": "false",
+                "description": "by default it is false when the is true does not return address"
+              }
+            }
+          }
+        }
+      },
+      "userAuth": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          }
+        }
+      },
+      "ResponseSessionUser": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "$ref": "#/components/schemas/jwtToken"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "number",
+                "example": 2
+              },
+              "ususername": {
+                "type": "string",
+                "example": "yourname"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              }
+            }
+          }
+        }
+      },
+      "RequestUpdateOrder": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "example": "61880821d413ec89feb21757",
+            "description": "order_id in route list"
+          },
+          "orderStatus": {
+            "type": "string",
+            "enum": [
+              "accepted, delivery_made, out_delivery, integrated_in_erp, erp_integration_error"
+            ]
+          },
+          "store_token": {
+            "$ref": "#/components/schemas/store_token"
+          }
+        }
+      },
+      "ResponseUpdateOrder": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": "ok"
+          },
+          "status": {
+            "type": "number",
+            "example": 200
+          }
+        }
+      },
+      "RequestUpdateProducts": {
+        "type": "object",
+        "properties": {
+          "store_token": {
+            "$ref": "#/components/schemas/store_token"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ean": {
+                  "type": "string",
+                  "example": "7898049793310",
+                  "required": true
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Doralgina CX 10mg",
+                  "required": true
+                },
+                "resume": {
+                  "type": "string",
+                  "example": "Doralgina"
+                },
+                "fullPrice": {
+                  "type": "number",
+                  "example": 15.99,
+                  "required": true
+                },
+                "filialStorage": {
+                  "type": "int",
+                  "example": 1,
+                  "required": true
+                },
+                "activePrinciple": {
+                  "type": "string",
+                  "example": "Paracetamol"
+                },
+                "sku": {
+                  "type": "string",
+                  "example": "123"
+                },
+                "pmc": {
+                  "type": "number",
+                  "example": "12.56"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ResponseUpdateProduct": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "ok"
+          },
+          "requested_products": {
+            "type": "number",
+            "example": 100,
+            "description": "produts requested in endpoint"
+          },
+          "products_ok": {
+            "type": "number",
+            "example": 98,
+            "description": "successfully processed products"
+          },
+          "products_error": {
+            "type": "number",
+            "example": 2,
+            "description": "products with error"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "number"
+          },
+          "error": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "documentation": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

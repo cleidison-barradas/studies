@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mypharma-api-site:
+    image: ambientum/node:15
+    container_name: mypharma-api-site
+    command: bash -c "npm i && npm run dev"
+    ports:
+      - '${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}'
+    volumes:
+      - .:/var/www/app

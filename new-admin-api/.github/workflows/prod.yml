@@ -1,0 +1,107 @@
+name: Admin API Production Deploy
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_PROD_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create production environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_HOST: ${{ secrets.PROD_MONGO_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.PROD_MONGO_PORT }}
+          envkey_DATABASE_NAME: ${{ secrets.PROD_MONGO_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.PROD_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.PROD_MONGO_PASSWORD }}
+          envkey_DATABASE_ENV: prod
+          envkey_JWT_ISSUER: ${{ secrets.PROD_JWT_ISSUER }}
+          envkey_JWT_SUBJECT: ${{ secrets.PROD_JWT_SUBJECT }}
+          envkey_JWT_AUDIENCE: ${{ secrets.PROD_JWT_AUDIENCE }}
+          envkey_JWT_EXPIRES: ${{ secrets.PROD_JWT_EXPIRES }}
+          envkey_JWT_ALGORITHM: ${{ secrets.PROD_JWT_ALGORITHM }}
+          envkey_AWS_S3_BUCKET: ${{ secrets.PROD_AWS_S3_BUCKET }}
+          envkey_AWS_S3_KEY_ID: ${{ secrets.PROD_AWS_S3_KEY_ID }}
+          envkey_AWS_S3_ACCESS_KEY: ${{ secrets.PROD_AWS_S3_ACCESS_KEY }}
+          envkey_AWS_S3_REGION: ${{ secrets.PROD_AWS_S3_REGION }}
+          envkey_AMQP_HOST: ${{ secrets.PROD_AMQP_HOST }}
+          envkey_PAYMENT_API: ${{ secrets.PROD_PAYMENT_API }}
+          envkey_SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+          envkey_SENDGRID_USER: ${{ secrets.SENDGRID_USER }}
+          envkey_GERENCIANET_PIX_URL: ${{ secrets.GERENCIANET_PIX_URL }}
+          envkey_WEBHOOK_API_URL: ${{ secrets.PROD_WEBHOOK_API_URL }}
+          envkey_AWS_S3_URL: ${{ secrets.AWS_S3_URL }}
+          envkey_AMQP_ETL: ${{ secrets.PROD_AMQP_ETL }}
+          envkey_REDIS_HOST: ${{ secrets.PROD_REDIS_HOST }}
+          envkey_REDIS_PASSWORD: ${{ secrets.PROD_REDIS_PASSWORD }}
+          envkey_REDIS_PORT: ${{ secrets.PROD_REDIS_PORT }}
+          envkey_AMQP_ERP_MAIN: ${{ secrets.PROD_AMQP_ERP_MAIN }}
+          envkey_AMQP_ERP_DEAD: ${{ secrets.PROD_AMQP_ERP_DEAD }}
+          envkey_AMQP_HOST_HANDLER: ${{ secrets.PROD_AMQP_HOST_HANDLER }}
+          envkey_GEAOAPIFY_KEY: ${{secrets.GEAOAPIFY_KEY}}
+          envkey_EPHARMA_BASE_URL: ${{ secrets.PROD_EPHARMA_BASE_URL}}
+          envkey_FARMACIAS_APP_API_URL: ${{ secrets.FARMACIAS_APP_API_URL }}
+          envkey_ENCRYPT_FAPP_SECRETS_KEY: ${{ secrets.ENCRYPT_FAPP_SECRETS_KEY }}
+
+          envkey_NODE_ENV: production
+          envkey_PORT: ${{secrets.PORT}}
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Running Tests
+        run: npm run test
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO
+
+  deployAws:
+    name: Push task definition and deploy to ECS
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_PROD_REPO }}
+    needs: [docker]
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Download task definition
+        run: aws ecs describe-task-definition --task-definition ${{ secrets.AWS_TASK_DEFINITION_NAME }} --query taskDefinition > task-definition.json
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ secrets.AWS_CONTAINER_NAME }}
+          image: ${{ secrets.DOCKER_PROD_REPO }}:latest
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ secrets.AWS_SERVICE_NAME }}
+          cluster: ${{ secrets.AWS_CLUSTER_NAME }}
+          wait-for-service-stability: true

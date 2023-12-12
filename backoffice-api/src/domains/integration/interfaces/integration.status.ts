@@ -1,0 +1,1 @@
+export type IntegrationStatus = 'healthy' | 'warning' | 'problem' | 'unknown'

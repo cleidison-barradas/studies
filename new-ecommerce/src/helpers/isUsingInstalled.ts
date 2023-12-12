@@ -1,0 +1,1 @@
+export const isUsingInstalled = ()=> ((navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: fullscreen)').matches || window.matchMedia('(display-mode: minimal-ui)').matches)

@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Vendas",
+    "childreen": [
+      {
+        "name": "Carrinhos abandonados",
+        "description": "Incentiva seus clientes a concluirem uma compra abandonada.",
+        "helper": "",
+        "link": "",
+        "icon": "infoCart"
+      },
+      {
+        "name": "Não compra a mais de 15 dias",
+        "description": "Incentiva seus clientes a concluirem uma compra abandonada.",
+        "helper": "",
+        "link": "",
+        "icon": "unhappy"
+      },
+      {
+        "name": "Não compra a mais de 20 dias",
+        "description": "Incentiva seus clientes a concluirem uma compra abandonada.",
+        "helper": "",
+        "link": "",
+        "icon": "fluExpression"
+      },
+      {
+        "name": "Não compra a mais de 30 dias",
+        "description": "Incentiva seus clientes a concluirem uma compra abandonada.",
+        "helper": "",
+        "link": "",
+        "icon": "cryingFace"
+      }
+    ]
+  }
+]

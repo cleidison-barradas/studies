@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+node_modules/
+dist/
+build/
+tmp/
+temp/
+.DS_Store
+.env
+package-lock.json
+yarn*
+/coverage
+pnpm-lock.yaml

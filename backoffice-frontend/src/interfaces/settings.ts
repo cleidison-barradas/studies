@@ -1,0 +1,36 @@
+export default interface Settings {
+    config_cnpj: string
+    config_url: string
+    config_name: string
+    config_company_name: string
+    config_phone: string
+    config_store_city: string
+    config_store_number: string
+    config_cep?: string
+    config_address: string
+    config_email: string
+    config_pharmacist_crf: string
+    config_pharmacist_name: string
+    config_responsible_name: string
+    config_owner?: string
+    config_logo?: string
+    config_color?: string
+    config_navbar_color?: string
+    config_navbar_text_color: object
+    config_google_tag_manager_id?: string
+    config_meta_keyword?: string
+    config_meta_description?: string
+    config_meta_title?: string
+    config_hotjar_id?: string
+    config_schema_markup?: string
+    config_whatsapp_phone: string
+    config_tawk_embed?: string
+    config_analytics_id?: string
+    config_analytics_api_client_id?: boolean
+    config_show_celphone: boolean
+    config_stock: boolean
+    config_withdraw: boolean
+    config_whatsapp_button: boolean
+    config_cpf_checkout: boolean
+    config_hide_prices: boolean
+}

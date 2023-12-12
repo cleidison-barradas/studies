@@ -1,0 +1,13 @@
+node_modules
+tmp
+docker-compose.yml
+.env
+.env.*
+package-lock.json
+yarn.lock
+data
+.prettierrc
+.vscode
+.DS_Store
+.npmrc
+coverage

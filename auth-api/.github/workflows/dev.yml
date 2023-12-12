@@ -1,0 +1,64 @@
+name: Admin Auth API Dev Deploy
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  docker:
+    name: Deploy - Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_DEV_REPO }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Create dev environment
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DATABASE_ENV: develop
+          envkey_DATABASE_HOST: ${{ secrets.DEV_MONGO_HOST }}
+          envkey_DATABASE_NAME: ${{ secrets.DEV_MONGO_NAME }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DEV_MONGO_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DEV_MONGO_PASSWORD }}
+          envkey_JWT_ISSUER: ${{ secrets.DEV_JWT_ISSUER }}
+          envkey_JWT_SUBJECT: ${{ secrets.DEV_JWT_SUBJECT }}
+          envkey_JWT_AUDIENCE: ${{ secrets.DEV_JWT_AUDIENCE }}
+          envkey_JWT_EXPIRES: ${{ secrets.DEV_JWT_EXPIRES }}
+          envkey_JWT_ALGORITHM: ${{ secrets.DEV_JWT_ALGORITHM }}
+          envkey_SENDGRID_API_KEY: ${{ secrets.DEV_SENDGRID_API_KEY }}
+          envkey_SENDGRID_EMAIL_SENDER: ${{ secrets.DEV_SENDGRID_EMAIL_SENDER }}
+          envkey_FACEBOOK_URL: ${{ secrets.FACEBOOK_URL }}
+          envkey_FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          envkey_FACEBOOK_GET_PROFILE: ${{ secrets.FACEBOOK_GET_PROFILE }}
+          envkey_GOOGLE_ACCESS_TOKEN: ${{ secrets.GOOGLE_ACCESS_TOKEN }}
+          envkey_GOOGLE_GET_PROFILE: ${{ secrets.GOOGLE_GET_PROFILE }}
+          envkey_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          envkey_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          envkey_REDIS_PORT: ${{secrets.REDIS_PORT }}
+          envkey_DEV_LOCAL_ORIGIN: ${{ secrets.DEV_LOCAL_ORIGIN }}
+          envkey_NEW_ADMIN_URL: ${{ secrets.DEV_NEW_ADMIN_URL }}
+          envkey_SHIPPING_API: ${{ secrets.DEV_SHIPPING_API }}
+          envkey_AUTH_REDIRECT: ${{ secrets.AUTH_REDIRECT }}
+          envkey_PORT: ${{ secrets.PORT }}
+
+          envkey_NODE_ENV: development
+          file_name: .env
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing Dependencies
+        run: npm install
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Running Tests
+        run: npm run test
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker Image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker Image
+        run: docker push $REPO

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5", // define to your liking
+    "baseUrl": "./",
+    "paths": {
+      "myp-admin/*": ["./src/*"],
+    }
+  },
+  "exclude": ["node_modules"] // Optional
+}

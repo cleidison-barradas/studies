@@ -1,0 +1,46 @@
+server {
+  listen 8081;
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+
+    proxy_pass http://etl-api-rest:3020;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+}
+
+server {
+  listen 8189;
+
+  location ~* ^/socket.io/(.*) {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+
+    if ($query_string ~ encrypted=false) {
+      proxy_pass http://ws-balancer;
+    } 
+    if ($query_string ~ encrypted=true) {
+      proxy_pass http://etl.mypharma.com.br-app:8183;
+    }
+    if ($arg_encrypted = '') {
+      proxy_pass http://etl.mypharma.com.br-app:8183;
+    }
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+}
+
+upstream ws-balancer {
+  # enable sticky session based on IP
+  ip_hash;
+
+  server etl-api-connection-handler-1:8186;
+  server etl-api-connection-handler-2:8187;
+  server etl-api-connection-handler-3:8188;
+}

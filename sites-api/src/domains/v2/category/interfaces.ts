@@ -1,0 +1,1 @@
+export type ICategoryProductFilter = 'asc' | 'price' | 'promotion'

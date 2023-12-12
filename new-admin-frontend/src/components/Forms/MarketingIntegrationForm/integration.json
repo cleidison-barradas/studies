@@ -1,0 +1,179 @@
+[
+  {
+    "name": "Google Analytics E-commerce avançado",
+    "caption": "Dados do google analytics",
+    "inputs": [
+      {
+        "inputName": "gaview",
+        "label": "Google analytics view",
+        "size": 6
+      },
+      {
+        "inputName": "ga_client_email",
+        "label": "Client email",
+        "size": 6
+      },
+      {
+        "inputName": "ga_private_key",
+        "label": "Chave privada",
+        "size": 12,
+        "textarea": true
+      }
+    ],
+    "website": "http://www.google.com/analytics/",
+    "input": false,
+    "isLink": false
+  },
+  {
+    "name": "Google Analytics",
+    "description": "O Google Analytics é um sistema gratuito de monitoramento de tráfego que pode ser instalado em qualquer site,loja virtual ou blog, e ferramenta fundamental para o marketing digital.",
+    "caption": "Google Analytics ID",
+    "inputName": "config_analytics_id",
+    "website": "http://www.google.com/analytics/",
+    "input": true,
+    "isLink": false
+  },
+  {
+    "name": "Pixel do Facebook",
+    "description": "O pixel do Facebook é uma ferramenta de análise que permite mensurar a eficácia da sua publicidade com base nas ações que as pessoas realizam no seu site. Você pode usar o pixel para: Ter certeza de que seus anúncios serão mostrados às pessoas certas.",
+    "caption": "Código de Pixel do Facebook ",
+    "inputhelper": "",
+    "inputName": "config_pixel_id",
+    "website": "https://www.facebook.com/business/help/952192354843755?id=1205376682832142",
+    "input": true,
+    "isLink": false
+  },
+  {
+    "name": "Google Tag Manager",
+    "description": "Google Tag Manager é uma ferramenta gratuita do Google, pela qual é possível inserir apenas um código em um site, para depois instalar diversos serviços sem precisar mexer nesse código. Ao centralizar a gestão de códigos no GTM, o marketing ganha autonomia, melhora a produtividade e reduz custos com TI. ",
+    "caption": "Código do Google Tag Manager",
+    "inputName": "config_google_tag_manager_id",
+    "inputhelper": "Ex: GTM-0000000",
+    "website": "https://marketingplatform.google.com/intl/pt-BR_br/about/tag-manager/",
+    "input": true,
+    "isLink": false
+  },
+  {
+    "name": "Chat online Tawk.to para sua loja",
+    "description": "O tawk.to é um aplicativo gratuito de mensagens que permite monitorar e conversar com visitantes em seu website, aplicativo para dispositivos móveis ou em uma página personalizável gratuita. ",
+    "caption": "Tawk.to embeded script url",
+    "inputName": "config_tawk_embed",
+    "website": "https://www.tawk.to/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": false
+  },
+  {
+    "name": "Facebook Shopping",
+    "description": " Com o Facebook Shopping, sua farmácia pode ter os produtos do ecommerce integrados/automatizados com as lojas dentro do Facebook, Instagram e WhatsApp.",
+    "caption": "Produtos para o Facebook Shopping",
+    "inputName": "facebook_shopping",
+    "website": "https://www.facebook.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true
+  },
+  {
+    "name": "Consulta Remédios",
+    "description": " Consulta Remédios é o maior marketplace farmacêutico do Brasil, reunindo centenas de farmácias com o intuito de aumentar as vendas das mesmas. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto ao Consulta Remédios.",
+    "caption": "Produtos para o Consultas Remédios",
+    "inputName": "consulta_remedios",
+    "website": "https://www.facebook.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true
+  },
+  {
+    "name": "Google Shopping",
+    "description": "Com o Google Shopping, sua farmácia pode ter os produtos do ecommerce integrados/automatizados com a vitrine de produtos do Google Shopping (anúncios pagos). Obs.: Nem sempre isso pode funcionar, pois o Google Ads é altamente restrito com produtos farmacêuticos.",
+    "caption": "Produtos para o google Shopping",
+    "inputName": "google_shopping",
+    "website": "https://www.google.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true
+  },
+  {
+    "name": "CoteFácil",
+    "description": " Cotefácil é uma ferramenta de comparação de preços de produtos farmacêuticos. Com ela, sua farmácia pode ganhar mais acessos no website, de forma simples. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto ao Cote Fácil.",
+    "caption": "Produtos para o CoteFácil",
+    "inputName": "cote_facil",
+    "website": "https://www.facebook.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true
+  },
+  {
+    "name": "Cliquefarma",
+    "description": " Cliquefarma é uma ferramenta de comparação de preços de produtos farmacêuticos. Com ela, sua farmácia pode ganhar mais acessos no website, de forma simples. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto ao Cliquefarma.",
+    "caption": "Produtos para o Cliquefarma",
+    "inputName": "cliquefarma",
+    "website": "https://www.facebook.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true
+  },
+  {
+    "name": "Buscapé",
+    "description": "Buscapé é o mais importante comparador de preços de produtos, pertencente ao Grupo Mosaico. Estando no Buscapé, sua farmácia ganha mais acessos no website, de forma simples. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto às 3 ferramentas do Grupo Mosaico: Buscapé, Bondfaro e Zoom.",
+    "caption": "Produtos para o Buscapé",
+    "inputName": "buscape",
+    "website": "https://www.facebook.com/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": true,
+    "isLink": true,
+    "requires": ["config_best_shipping", "config_shipping_courier"]
+  },
+  {
+    "name": "iFood",
+    "description": "iFood é o maior App de marketplace de delivery do Brasil. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto ao iFood.",
+    "caption": "Códigos de configuração para integração do iFood",
+    "inputs": [
+      {
+        "inputName": "config_ifood_store_id",
+        "label": "ID da Loja",
+        "size": 4
+      },
+      {
+        "inputName": "config_ifood_client_id",
+        "label": "Client - ID",
+        "size": 4
+      },
+      {
+        "inputName": "config_ifood_client_secret",
+        "label": "Client - Secret",
+        "size": 4
+      }
+    ],
+    "website": "https://developermercado.ifood.com.br/docs/seja-nosso-parceiro",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": false,
+    "isLink": false
+  },
+  {
+    "name": "Farmácias APP",
+    "description": "O Farmácias APP é um facilitador de compras de produtos. Com a MyPharma, sua loja pode ter os produtos automatizados/integrados junto ao Farmácias App.",
+    "caption": "Códigos de configuração para integração do Farmácias App",
+    "inputs": [
+      {
+        "inputName": "config_farmaciasapp_seller_id",
+        "label": "Seller ID",
+        "size": 4
+      },
+      {
+        "inputName": "config_farmaciasapp_client_id",
+        "label": "Client ID",
+        "size": 4
+      },
+      {
+        "inputName": "config_farmaciasapp_client_secret",
+        "label": "Client Secret",
+        "size": 4
+      }
+    ],
+    "website": "https://credenciamento.farmaciasapp.com.br/",
+    "inputhelper": "Exemplo: https://embed.tawk.to/5fb3f6071535bf152a56e948/default",
+    "input": false,
+    "isLink": false
+  }
+]

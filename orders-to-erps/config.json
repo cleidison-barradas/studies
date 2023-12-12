@@ -1,0 +1,9 @@
+{
+    "jwt": {
+        "company": "MyPharma",
+        "email": "comercial@mypharma.net.br",
+        "website": "https://www.mypharma.com.br/",
+        "expiresIn": "180h",
+        "algorithm": "RS256"
+    }
+}

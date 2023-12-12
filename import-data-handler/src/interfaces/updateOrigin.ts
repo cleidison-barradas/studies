@@ -1,0 +1,1 @@
+export type IUpdateOrigin = 'etl' | 'xls' | 'erp_api'

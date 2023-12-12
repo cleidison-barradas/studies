@@ -1,0 +1,14 @@
+{
+    "core_version_code": 31,
+    "api": {
+        "login": "http://localhost:8081/v2/account/login",
+        "validate": "http://localhost:8081/v2/account/validate",
+        "renew": "http://localhost:8081/v2/account/renew",
+        "root": "http://localhost:8081/"
+    },
+    "socket_host": "ws://localhost:8189",
+    "monitor_socket_host": "ws://localhost:8084",
+    "data_folder": "/Users/georgecarvalho/jobs/mypharma/dev/etl20/build/data",
+    "log_folder": "/Users/georgecarvalho/jobs/mypharma/dev/etl20/build/logs",
+    "installation_folder": "/Users/georgecarvalho/jobs/mypharma/dev/etl20/build/mac"
+  }
